@@ -1,21 +1,35 @@
 package plaintweet
 
 import (
+	"context"
 	"fmt"
 	"html"
 	"net/url"
+	"os"
 	"path"
 	"strconv"
 
 	"github.com/dghubble/go-twitter/twitter"
+	"golang.org/x/oauth2/clientcredentials"
 )
 
 type Repository struct {
 	twitter *twitter.Client
 }
 
-func NewRepository(client *twitter.Client) *Repository {
-	return &Repository{twitter: client}
+func NewRepository(ctx context.Context) *Repository {
+	config := &clientcredentials.Config{
+		ClientID:     os.Getenv("TWITTER_CONSUMER_KEY"),
+		ClientSecret: os.Getenv("TWITTER_CONSUMER_SECRET"),
+		TokenURL:     "https://api.twitter.com/oauth2/token",
+	}
+
+	return &Repository{twitter: twitter.NewClient(
+		config.Client(
+			ctx,
+		),
+	),
+	}
 }
 
 // returns the PlainTweet identified by its id

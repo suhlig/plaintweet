@@ -1,71 +1,25 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"net/url"
 	"os"
-	"path/filepath"
 
-	"github.com/dghubble/go-twitter/twitter"
-	"github.com/suhlig/plaintweet/plaintweet"
-	"golang.org/x/oauth2/clientcredentials"
+	"github.com/spf13/cobra"
+	"github.com/suhlig/plaintweet/cmd"
 )
 
-// ldflags will be set by goreleaser
-var version = "vDEV"
-var commit = "NONE"
-var date = "UNKNOWN"
-
-func main() {
-	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Error: Missing argument for tweet (URL or ID)")
-		os.Exit(MissingArgument)
-	}
-
-	if os.Args[1] == "version" {
-		fmt.Printf("%s %s (%s), built on %s\n", getProgramName(), version, commit, date)
-		return
-	}
-
-	uri, err := url.Parse(os.Args[1])
-
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v", err)
-		os.Exit(ParseError)
-	}
-
-	config := &clientcredentials.Config{
-		ClientID:     os.Getenv("TWITTER_CONSUMER_KEY"),
-		ClientSecret: os.Getenv("TWITTER_CONSUMER_SECRET"),
-		TokenURL:     "https://api.twitter.com/oauth2/token",
-	}
-
-	repo := plaintweet.NewRepository(
-		twitter.NewClient(
-			config.Client(
-				context.Background(),
-			),
-		),
-	)
-
-	tweet, err := repo.Find(uri)
-
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v", err)
-		os.Exit(NoSuchTweet)
-	}
-
-	fmt.Printf("%s\n", tweet)
+var rootCmd = &cobra.Command{
+	Use:   "plaintweet",
+	Short: "Provides a plain-text representation of a single tweet",
 }
 
-func getProgramName() string {
-	path, err := os.Executable()
+func main() {
+	rootCmd.AddCommand(cmd.ServeCmd)
+	rootCmd.AddCommand(cmd.PrintCmd)
+	rootCmd.AddCommand(cmd.VersionCmd)
 
-	if err != nil {
-		os.Stderr.WriteString("Warning: Could not determine program name; using 'unknown'.\n")
-		return "unknown"
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
-
-	return filepath.Base(path)
 }

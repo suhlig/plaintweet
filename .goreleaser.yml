@@ -46,4 +46,4 @@ release:
 
 publishers:
   - name: save-release-url
-    cmd: sh -c "echo '{{ .ReleaseURL }}' > release-url.txt"
+    cmd: sh -c "echo '{{ .ReleaseURL }}' > dist/release-url.txt"

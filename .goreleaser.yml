@@ -14,7 +14,7 @@ builds:
       - arm
 
     goarm:
-      - 7
+      - "7"
 
     env:
     - CGO_ENABLED=0
@@ -43,3 +43,7 @@ changelog:
 release:
   # Mark the release as not ready for production if there is an indicator for this in the tag e.g. v1.0.0-rc1
   prerelease: auto
+
+publishers:
+  - name: save-release-url
+    cmd: echo {{ .ReleaseURL }} > release-url.txt

@@ -1,12 +1,9 @@
 #!/usr/bin/env bats
 
-# load "${BATS_LIBRARY_PATH:-$(dirname "${BASH_SOURCE[0]}")/../..}/bats-support/load.bash"
-# load "${BATS_LIBRARY_PATH:-$(dirname "${BASH_SOURCE[0]}")/../..}/bats-assert/load.bash"
-
-# setup() {
-#     load 'bats-support/load'
-#     load 'bats-assert/load'
-# }
+setup() {
+  load "${BATS_LIBRARY_PATH:-../..}/bats-support/load.bash"
+  load "${BATS_LIBRARY_PATH:-../..}/bats-assert/load.bash"
+}
 
 @test "version reports a version string" {
   run ${PROGRAM_UNDER_TEST:?missing} version

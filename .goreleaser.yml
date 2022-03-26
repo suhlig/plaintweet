@@ -17,7 +17,14 @@ builds:
       - "7"
 
     env:
-    - CGO_ENABLED=0
+      - CGO_ENABLED=0
+
+    ldflags: |
+      -s
+      -w
+      -X github.com/suhlig/plaintweet/cmd.version={{.Version}}
+      -X github.com/suhlig/plaintweet/cmd.commit={{.Commit}}
+      -X github.com/suhlig/plaintweet/cmd.date={{.Date}}
 
 archives:
 - replacements:

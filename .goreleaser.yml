@@ -54,15 +54,3 @@ release:
 publishers:
   - name: save-release-url
     cmd: sh -c "echo '{{ .ReleaseURL }}' > dist/release-url.txt"
-
-dockers:
-  - id: plaintweet-docker-linux-amd64
-    goos: linux
-    goarch: amd64
-    goarm: ''
-
-    image_templates:
-      - "suhlig/plaintweet:latest"
-      - "suhlig/plaintweet:{{ .Tag }}"
-      - "suhlig/plaintweet:v{{ .Major }}.{{ .Minor }}"
-      - "suhlig/plaintweet:v{{ .Major }}"

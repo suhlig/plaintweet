@@ -53,6 +53,11 @@ func (r *Repository) Lookup(id int64) (*PlainTweet, error) {
 // returns the PlainTweet identified by its URL
 func (r *Repository) Find(uri *url.URL) (*PlainTweet, error) {
 	_, idStr := path.Split(uri.Path)
+
+	if idStr == "" {
+		return nil, fmt.Errorf("cannot find a tweet ID in %s", uri)
+	}
+
 	id, err := strconv.ParseInt(idStr, 10, 64)
 
 	if err != nil {

@@ -30,7 +30,7 @@ var ServeCmd = &cobra.Command{
 				fmt.Fprintln(w, "OK")
 			} else {
 				w.WriteHeader(500)
-				fmt.Fprintf(w, "%s\n", err)
+				fmt.Fprintf(w, "Error: %s\n", err)
 			}
 		})
 
@@ -48,7 +48,7 @@ var ServeCmd = &cobra.Command{
 
 			if err != nil {
 				w.WriteHeader(404)
-				fmt.Fprintf(w, "%s\n", err)
+				fmt.Fprintf(w, "Error: %s\n", err)
 				return
 			}
 

@@ -22,9 +22,9 @@ builds:
     ldflags: |
       -s
       -w
-      -X github.com/suhlig/plaintweet/cmd.version={{.Version}}
-      -X github.com/suhlig/plaintweet/cmd.commit={{.Commit}}
-      -X github.com/suhlig/plaintweet/cmd.date={{.Date}}
+      -X github.com/suhlig/plaintweet/plaintweet.version={{.Version}}
+      -X github.com/suhlig/plaintweet/plaintweet.commit={{.Commit}}
+      -X github.com/suhlig/plaintweet/plaintweet.date={{.Date}}
 
 archives:
 - replacements:

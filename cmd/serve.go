@@ -13,7 +13,11 @@ import (
 var ServeCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Serves a plain-text representation of a single tweet via HTTP",
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE: func(command *cobra.Command, args []string) error {
+		http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintf(w, "%s\n", plaintweet.VersionString())
+		})
+
 		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 			log.Printf("%v", r.URL)
 

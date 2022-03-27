@@ -23,6 +23,8 @@ var PrintCmd = &cobra.Command{
 		return err
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
+		cmd.SilenceUsage = true // no need to print usage; we'll handle all errors
+
 		uri, err := url.Parse(args[0])
 
 		if err != nil {

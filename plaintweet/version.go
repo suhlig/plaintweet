@@ -10,3 +10,7 @@ var date = "UNKNOWN"
 func VersionString() string {
 	return fmt.Sprintf("plaintweet %s (%s), built on %s", version, commit, date)
 }
+
+func VersionStringShort() string {
+	return fmt.Sprintf("plaintweet-%s; commit=%s", version, commit)
+}

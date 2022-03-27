@@ -32,9 +32,21 @@ func NewRepository(ctx context.Context) *Repository {
 	}
 }
 
+// returns the authenticated user's screen name or an error if the authentication was not ok
+func (r *Repository) AuthenticatedUser() (string, error) {
+	response, _, err := r.twitter.Accounts.VerifyCredentials(&twitter.AccountVerifyParams{})
+
+	if err != nil {
+		return "", err
+	}
+
+	return response.ScreenName, nil
+}
+
 // returns the PlainTweet identified by its id
 func (r *Repository) Lookup(id int64) (*PlainTweet, error) {
 	tweet, _, err := r.twitter.Statuses.Show(id, &twitter.StatusShowParams{TweetMode: "extended"})
+
 	return &PlainTweet{tweet}, err
 }
 

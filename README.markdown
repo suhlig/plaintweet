@@ -23,3 +23,10 @@ The environment variables `$TWITTER_CONSUMER_KEY` and `$TWITTER_CONSUMER_SECRET`
   ```command
   $ docker run --env TWITTER_CONSUMER_KEY --env TWITTER_CONSUMER_SECRET -it suhlig/plaintweet
   ```
+
+# Bonus
+
+This application is intended for use in my course "[Web Services](https://ws.uhlig.it/)" at [DHBW](https://www.ravensburg.dhbw.de/studienangebot/bachelor-studiengaenge/informatik). For this purpose, it has some endpoints that showcase Kubernetes' [liveness and readiness probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/):
+
+* `/liveness` will generally return `200`, unless the environment variable `MAX_UPTIME` was set to a value [`time.ParseDuration`](https://pkg.go.dev/time#ParseDuration) accepts and the given time since server start has elapsed. Other paths will still work, but `/liveness` will return `500` thereafter.
+* `/readiness` will return `200` if the authentication with Twitter is successful, otherwise `500` will be returned.

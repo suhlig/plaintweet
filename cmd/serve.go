@@ -44,6 +44,11 @@ var ServeCmd = &cobra.Command{
 			log.Printf("%v", r.URL)
 			w.Header().Add("Server", plaintweet.VersionStringShort())
 
+			if r.URL.Path == "/" {
+				fmt.Fprintln(w, command.Root().Short)
+				return
+			}
+
 			tweet, err := plaintweet.NewRepository(r.Context()).Find(r.URL)
 
 			if err != nil {
@@ -61,7 +66,7 @@ var ServeCmd = &cobra.Command{
 			port = "8080"
 		}
 
-		log.Printf("Starting server on port %s", port)
+		log.Printf("Starting server %s on port %s", plaintweet.VersionStringShort(), port)
 
 		return http.ListenAndServe(":"+port, nil)
 	},

@@ -6,4 +6,8 @@
 # Run
 
 * Grab the [latest release](https://github.com/suhlig/plaintweet/releases/latest), unpack it and run `plaintweet` for more information.
-* There is also a Docker image, run it with `docker run -it docker.io/suhlig/plaintweet`.
+* There is also a Docker image, run it with:
+
+  ```command
+  $ docker run --env TWITTER_CONSUMER_KEY --env TWITTER_CONSUMER_SECRET -it suhlig/plaintweet
+  ```

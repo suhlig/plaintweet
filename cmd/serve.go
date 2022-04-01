@@ -14,12 +14,14 @@ var ServeCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Serves a plain-text representation of a single tweet via HTTP",
 	RunE: func(command *cobra.Command, args []string) error {
-		http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		// The kubelet uses liveness probes to know when to restart a container
+		http.HandleFunc("/liveness", func(w http.ResponseWriter, r *http.Request) {
 			log.Printf("%v", r.URL)
 			w.Header().Add("Server", plaintweet.VersionStringShort())
 			fmt.Fprintln(w, "OK")
 		})
 
+		// The kubelet uses readiness probes to know when a container is ready to start accepting traffic
 		http.HandleFunc("/readiness", func(w http.ResponseWriter, r *http.Request) {
 			log.Printf("%v", r.URL)
 			w.Header().Add("Server", plaintweet.VersionStringShort())
@@ -34,6 +36,8 @@ var ServeCmd = &cobra.Command{
 			}
 		})
 
+		// TODO The kubelet uses startup probes to know when a container application has started.
+
 		http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
 			log.Printf("%v", r.URL)
 			w.Header().Add("Server", plaintweet.VersionStringShort())
@@ -45,7 +49,7 @@ var ServeCmd = &cobra.Command{
 			w.Header().Add("Server", plaintweet.VersionStringShort())
 
 			if r.URL.Path == "/" {
-				fmt.Fprintln(w, command.Root().Short)
+				fmt.Fprintln(w, command.Short)
 				return
 			}
 

@@ -13,7 +13,7 @@ The environment variables `$TWITTER_CONSUMER_KEY` and `$TWITTER_CONSUMER_SECRET`
 
 # Serve
 
-`plaintweet serve` serves a plain-text representation of a single tweet via HTTP. It will start an HTTP server listening on $PORT (defaults to `8080`) and provide the same functionality as `print` (see above).
+`plaintweet serve` serves a plain-text representation of a single tweet via HTTP. It will start an HTTP server listening on `$PORT` (defaults to `8080`) and provide the same functionality as `print` (see above).
 
 # Run
 

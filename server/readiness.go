@@ -9,15 +9,18 @@ import (
 )
 
 func (s *Server) HandleReadiness(w http.ResponseWriter, r *http.Request) {
-	log.Printf("%v", r.URL)
 	w.Header().Add("Server", plaintweet.VersionStringShort())
 
 	_, err := plaintweet.NewRepository(r.Context()).Lookup(20)
+	var status string
 
 	if err == nil {
-		fmt.Fprintln(w, "OK")
+		status = "OK"
 	} else {
+		status = fmt.Sprintf("Error: %v", err)
 		w.WriteHeader(500)
-		fmt.Fprintf(w, "Error: %s\n", err)
 	}
+
+	log.Printf("%v: %s", r.URL, status)
+	fmt.Fprintln(w, status)
 }

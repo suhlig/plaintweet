@@ -8,6 +8,7 @@ builds:
   - goos:
       - linux
       - darwin
+      - windows
 
     goarch:
       - amd64
@@ -32,6 +33,7 @@ archives:
     linux: Linux
     amd64: x86_64
     arm: RaspberryPi
+    windows: Windows
 
 checksum:
   name_template: 'checksums.txt'

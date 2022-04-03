@@ -15,15 +15,7 @@ type Server struct {
 }
 
 func NewServer() *Server {
-	s := Server{}
-
-	http.HandleFunc("/liveness", s.HandleLiveness)   // The kubelet uses liveness probes to know when to restart a container
-	http.HandleFunc("/readiness", s.HandleReadiness) // The kubelet uses readiness probes to know when a container is ready to start accepting traffic
-	// TODO http.HandleFunc("/startup", s.HandleStartup) // The kubelet uses startup probes to know when a container application has started.
-	http.HandleFunc("/version", s.HandleVersion)
-	http.HandleFunc("/", s.HandleRoot)
-
-	return &s
+	return &Server{} // Syntactic sugar for the fluent interface
 }
 
 func (s *Server) WithMaxUptime(maxUpTime time.Duration) *Server {
@@ -37,6 +29,12 @@ func (s *Server) WithBlurb(blurb string) *Server {
 }
 
 func (s *Server) Start(addr string) error {
+	http.HandleFunc("/liveness", s.HandleLiveness)   // The kubelet uses liveness probes to know when to restart a container
+	http.HandleFunc("/readiness", s.HandleReadiness) // The kubelet uses readiness probes to know when a container is ready to start accepting traffic
+	// TODO http.HandleFunc("/startup", s.HandleStartup) // The kubelet uses startup probes to know when a container application has started.
+	http.HandleFunc("/version", s.HandleVersion)
+	http.HandleFunc("/", s.HandleRoot)
+
 	log.Printf("Starting server %s on port %s", plaintweet.VersionStringShort(), addr)
 
 	if s.maxUptime != nil {

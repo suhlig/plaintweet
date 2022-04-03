@@ -30,3 +30,12 @@ This application is intended for use in my course "[Web Services](https://ws.uhl
 
 * `/liveness` will generally return `200`, unless the environment variable `MAX_UPTIME` was set to a value [`time.ParseDuration`](https://pkg.go.dev/time#ParseDuration) accepts and the given time since server start has elapsed. Other paths will still work, but `/liveness` will return `500` thereafter.
 * `/readiness` will return `200` if the authentication with Twitter is successful, otherwise `500` will be returned.
+
+# Development
+
+Ginkgo has some issues with argument parsing; a workaround for `ginkgo watch` is to combine [`watchexec`](https://github.com/watchexec/watchexec) and `go test`:
+
+```command
+$ cd server
+$ watchexec go test
+```

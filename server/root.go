@@ -9,10 +9,10 @@ import (
 )
 
 func (s *Server) HandleRoot(w http.ResponseWriter, r *http.Request) {
-	log.Printf("%v", r.URL)
 	w.Header().Add("Server", plaintweet.VersionStringShort())
 
 	if r.URL.Path == "/" {
+		log.Printf("%v: OK", r.URL)
 		fmt.Fprintln(w, s.blurb)
 		return
 	}
@@ -25,5 +25,6 @@ func (s *Server) HandleRoot(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	log.Printf("%v: %s", r.URL, tweet)
 	fmt.Fprintf(w, "%s\n", tweet)
 }

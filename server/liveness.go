@@ -10,14 +10,18 @@ import (
 )
 
 func (s *Server) HandleLiveness(w http.ResponseWriter, r *http.Request) {
-	log.Printf("%v", r.URL)
 	w.Header().Add("Server", plaintweet.VersionStringShort())
 	w.Header().Add("X-Uptime", time.Since(s.startTime).Round(time.Second).String())
 
-	if s.maxUptime != nil && time.Since(s.startTime) > *s.maxUptime {
-		w.WriteHeader(500)
-		fmt.Fprintf(w, "Error: Maximum uptime of %v reached\n", s.maxUptime)
+	var status string
+
+	if s.maxUptime == nil || time.Since(s.startTime) < *s.maxUptime {
+		status = "OK"
 	} else {
-		fmt.Fprintln(w, "OK")
+		w.WriteHeader(500)
+		status = fmt.Sprintf("Error: Maximum uptime of %v reached\n", s.maxUptime)
 	}
+
+	log.Printf("%v: %s", r.URL, status)
+	fmt.Fprintln(w, status)
 }

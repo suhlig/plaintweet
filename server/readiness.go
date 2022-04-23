@@ -11,7 +11,7 @@ import (
 func (s *Server) HandleReadiness(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Server", plaintweet.VersionStringShort())
 
-	_, err := plaintweet.NewRepository(r.Context()).Lookup(20)
+	_, err := s.repository.Lookup(20)
 	var status string
 
 	if err == nil {

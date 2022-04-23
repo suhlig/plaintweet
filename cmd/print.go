@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"net/url"
@@ -31,7 +30,7 @@ var PrintCmd = &cobra.Command{
 			return err
 		}
 
-		tweet, err := plaintweet.NewRepository(context.Background()).Find(uri)
+		tweet, err := plaintweet.NewRepository(cmd.Context()).Find(uri)
 
 		if err != nil {
 			return err

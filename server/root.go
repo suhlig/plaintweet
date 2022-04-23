@@ -17,7 +17,7 @@ func (s *Server) HandleRoot(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tweet, err := plaintweet.NewRepository(r.Context()).Find(r.URL)
+	tweet, err := s.repository.Find(r.URL)
 
 	if err != nil {
 		w.WriteHeader(404)

@@ -9,13 +9,14 @@ import (
 )
 
 type Server struct {
-	startTime time.Time
-	maxUptime *time.Duration
-	blurb     string
+	startTime  time.Time
+	maxUptime  *time.Duration
+	blurb      string
+	repository plaintweet.Repository
 }
 
-func NewServer() *Server {
-	return &Server{} // Syntactic sugar for the fluent interface
+func NewServer(r plaintweet.Repository) *Server {
+	return &Server{repository: r}
 }
 
 func (s *Server) WithMaxUptime(maxUpTime time.Duration) *Server {

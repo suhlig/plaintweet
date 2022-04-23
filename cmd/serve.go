@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
+	"github.com/suhlig/plaintweet/plaintweet"
 	"github.com/suhlig/plaintweet/server"
 )
 
@@ -18,7 +19,7 @@ var ServeCmd = &cobra.Command{
 			port = "8080"
 		}
 
-		server := server.NewServer().WithBlurb(command.Short)
+		server := server.NewServer(plaintweet.NewRepository(command.Context())).WithBlurb(command.Short)
 
 		maxUpTimeStr, found := os.LookupEnv("MAX_UPTIME")
 

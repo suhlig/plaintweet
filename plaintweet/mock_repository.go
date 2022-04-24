@@ -18,7 +18,7 @@ func NewMockRepository(id int64, t, u string) Repository {
 	return &MockRepository{id: id, text: t, user: u}
 }
 
-func (r *MockRepository) AuthenticatedUser() (string, error) {
+func (*MockRepository) AuthenticatedUser() (string, error) {
 	return "mock", nil
 }
 

@@ -22,6 +22,6 @@ func (s *Server) HandleLiveness(w http.ResponseWriter, r *http.Request) {
 		status = fmt.Sprintf("Error: Maximum uptime of %v reached\n", s.maxUptime)
 	}
 
-	log.Printf("%v: %s", r.URL, status)
+	log.Printf("%v : %s", r.URL, status)
 	fmt.Fprintln(w, status)
 }

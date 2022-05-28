@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"os"
 
 	"github.com/suhlig/plaintweet/cmd"
@@ -15,7 +14,6 @@ func main() {
 	rootCmd.AddCommand(cmd.VersionCmd)
 
 	if err := rootCmd.ExecuteContext(context.Background()); err != nil {
-		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }

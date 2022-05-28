@@ -6,7 +6,6 @@ import (
 	"net/url"
 
 	"github.com/spf13/cobra"
-	"github.com/suhlig/plaintweet/plaintweet"
 )
 
 var PrintCmd = &cobra.Command{
@@ -30,7 +29,13 @@ var PrintCmd = &cobra.Command{
 			return err
 		}
 
-		tweet, err := plaintweet.NewRepository(cmd.Context()).Find(uri)
+		repo, err := selectRepo(cmd.Context())
+
+		if err != nil {
+			return err
+		}
+
+		tweet, err := repo.Find(uri)
 
 		if err != nil {
 			return err

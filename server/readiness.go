@@ -21,6 +21,6 @@ func (s *Server) HandleReadiness(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(500)
 	}
 
-	log.Printf("%v: %s", r.URL, status)
+	log.Printf("%v : %s", r.URL, status)
 	fmt.Fprintln(w, status)
 }

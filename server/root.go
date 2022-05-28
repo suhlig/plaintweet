@@ -12,7 +12,7 @@ func (s *Server) HandleRoot(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Server", plaintweet.VersionStringShort())
 
 	if r.URL.Path == "/" {
-		log.Printf("%v: OK", r.URL)
+		log.Printf("%v : 200", r.URL)
 		fmt.Fprintln(w, s.blurb)
 		return
 	}
@@ -21,10 +21,11 @@ func (s *Server) HandleRoot(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		w.WriteHeader(404)
+		log.Printf("%v : 404 : %s", r.URL, err)
 		fmt.Fprintf(w, "Error: %s\n", err)
 		return
 	}
 
-	log.Printf("%v: %s", r.URL, tweet)
+	log.Printf("%v : 200 : %s", r.URL, tweet)
 	fmt.Fprintf(w, "%s\n", tweet)
 }

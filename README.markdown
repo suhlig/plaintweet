@@ -5,7 +5,15 @@
 
 # Configuration
 
-The environment variables `$TWITTER_CONSUMER_KEY` and `$TWITTER_CONSUMER_SECRET` are required. Get your key at [developer.twitter.com](https://developer.twitter.com/).
+Create a new project at [developer.twitter.com](https://developer.twitter.com/) and export the bearer token as `TWITTER_BEARER_TOKEN`:
+
+```command
+$ export TWITTER_BEARER_TOKEN="DEADBEEF..."
+```
+
+Please quote the value; it most likely contains characters that are not shell safe.
+
+For legacy accounts, the environment variables `$TWITTER_CONSUMER_KEY` and `$TWITTER_CONSUMER_SECRET` can be used instead.
 
 # Print
 

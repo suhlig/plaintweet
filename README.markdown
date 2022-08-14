@@ -47,3 +47,7 @@ Ginkgo has some issues with argument parsing; a workaround for `ginkgo watch` is
 $ cd server
 $ watchexec go test
 ```
+
+# TODO
+
+* Add metrics endpoint counting the number of requests

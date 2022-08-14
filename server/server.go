@@ -3,6 +3,7 @@ package server
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/suhlig/plaintweet/plaintweet"
@@ -36,7 +37,7 @@ func (s *Server) Start(addr string) error {
 	http.HandleFunc("/version", s.HandleVersion)
 	http.HandleFunc("/", s.HandleRoot)
 
-	log.Printf("Starting server %s on port %s", plaintweet.VersionStringShort(), addr)
+	log.Printf("Starting server %s on port %s; pid is %d", plaintweet.VersionStringShort(), addr, os.Getpid())
 
 	if s.maxUptime != nil {
 		log.Printf("Maximum allowed uptime set to %v; afterwards /liveness will report an error", s.maxUptime)

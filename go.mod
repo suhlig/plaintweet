@@ -1,6 +1,6 @@
 module github.com/suhlig/plaintweet
 
-go 1.18
+go 1.19
 
 require (
 	github.com/dghubble/go-twitter v0.0.0-20220716041154-837915ec2f79
